@@ -16,7 +16,11 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-        cache: gradle
+
+    # --- TAMBAHKAN LANGKAH INI UNTUK MEMBUAT GRADLEW OTOMATIS ---
+    - name: Generate Gradle Wrapper
+      run: gradle wrapper --gradle-version 8.7
+      # (Jika gradle belum terinstal di runner, perintah ini akan mengunduhnya)
 
     - name: Grant Execute Permission for Gradlew
       run: chmod +x gradlew
