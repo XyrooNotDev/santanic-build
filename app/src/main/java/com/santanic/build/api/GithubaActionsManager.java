@@ -40,4 +40,4 @@ public class GitHubActionsManager {
     }
 
     public interface TriggerCallback { void onSuccess(); void onError(String error); }
-}
+                                                            }
