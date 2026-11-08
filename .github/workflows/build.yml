@@ -19,7 +19,7 @@ jobs:
 
     # --- TAMBAHKAN LANGKAH INI UNTUK MEMBUAT GRADLEW OTOMATIS ---
     - name: Generate Gradle Wrapper
-      run: gradle wrapper --gradle-version 8.7
+      run: gradle wrapper --gradle-version 8.9
       # (Jika gradle belum terinstal di runner, perintah ini akan mengunduhnya)
 
     - name: Grant Execute Permission for Gradlew
