@@ -8,6 +8,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="Santanic Build"
         android:supportsRtl="true"
+        android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
         
         <!-- Halaman Login menjadi halaman pertama yang terbuka -->
         <activity android:name=".LoginActivity"
