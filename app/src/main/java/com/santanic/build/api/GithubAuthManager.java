@@ -7,7 +7,6 @@ import java.io.IOException;
 import okhttp3.*;
 
 public class GitHubAuthManager {
-    // GANTI DENGAN CLIENT ID DARI GITHUB OAUTH APPS ANDA
     private static final String CLIENT_ID = "Ov23liJRu7F3iYnIevNi"; 
     private final OkHttpClient client = new OkHttpClient();
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
@@ -49,6 +48,7 @@ public class GitHubAuthManager {
     }
 
     private void startPolling(String deviceCode, int interval, AuthCallback callback) {
+        // Perbaikan: Menggunakan Runnable secara eksplisit agar tidak error
         Runnable pollRunnable = new Runnable() {
             @Override public void run() {
                 RequestBody body = new FormBody.Builder()
@@ -70,7 +70,8 @@ public class GitHubAuthManager {
                             if (json.has("access_token")) {
                                 mainHandler.post(() -> callback.onLoginSuccess(json.getString("access_token")));
                             } else if (json.optString("error").equals("authorization_pending")) {
-                                mainHandler.postDelayed(this, interval * 1000L);
+                                // Perbaikan: Gunakan pollRunnable, bukan 'this'
+                                mainHandler.postDelayed(pollRunnable, interval * 1000L);
                             } else {
                                 mainHandler.post(() -> callback.onError("Gagal: " + json.optString("error")));
                             }
@@ -82,7 +83,6 @@ public class GitHubAuthManager {
         mainHandler.postDelayed(pollRunnable, interval * 1000L);
     }
     
-    // Ambil username dari token
     public void getUsername(String token, OnUsernameFetched listener) {
         Request request = new Request.Builder()
                 .url("https://api.github.com/user")
@@ -99,4 +99,4 @@ public class GitHubAuthManager {
         });
     }
     public interface OnUsernameFetched { void onFetched(String username); }
-}
+                    }
